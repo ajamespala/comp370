@@ -60,7 +60,7 @@ class NFA:
 def renumber(transitions, factor):
     '''''
     renumber: renumbers transitions so that concat, union, and star NFA's can be made 
-        @param: transitions is a set of transitions in the form of tuples
+    @param: transitions is a set of transitions in the form of tuples
     @param factor is the amount you are shifting the state numbers by
     @returns the new set of transitions'
     '''
@@ -76,7 +76,7 @@ def renumber(transitions, factor):
 def concat(n1, n2):
     '''
     concat: performs the operatoins associated with the concat function 
-        @param n1, n2 are nfa machines
+    @param n1, n2 are nfa machines
     @returns new updated nfa with appropriate state numbers
     '''
     # create final alphabet with symbols from both nfa alphabets
@@ -161,8 +161,8 @@ def union(n1, n2):
 def star(n1):
     '''
     star: performs the operatoins associated with the star function 
-        @param n1 is an nfa machines
-        @returns new updated nfa with appropriate state numbers
+    @param n1 is an nfa machines
+    @returns new updated nfa with appropriate state numbers
     '''
     alpha = []
     alpha.append(n1.get_alphabet())
@@ -277,8 +277,8 @@ def parse(reg_expr):
     stack. Once you have gone through the whole reg_expr array, pop from
     the operator stack and pop twice from the operand stack, creating a
     syntax tree as you go, until the operator stack is empty.
-        @param: reg_expr is an array holding the regular expression read in
-        @returns root which is the syntax tree
+    @param: reg_expr is an array holding the regular expression read in
+    @returns root which is the syntax tree
     '''
     # initialize empty stacks for operands and operators
     operand_stack = []
@@ -379,13 +379,13 @@ def update_nfa(a, stack):
 def check_type(a, previous, operator_stack, operand_stack):
     '''
     check_type: adds implied concat when necessary
-        checks the type of the operator that is to be put on the stack 
-        handles concat operator and add in  '@' for char or ')' 
-        followed by another char, '(', or star
-        @param a is the current symbol scanned
-        @param previous is the last symbol scanned
-        @param operator_stack is the operator stack
-        @param operand_stack is the operand stack
+    checks the type of the operator that is to be put on the stack 
+    handles concat operator and add in  '@' for char or ')' 
+    followed by another char, '(', or star
+    @param a is the current symbol scanned
+    @param previous is the last symbol scanned
+    @param operator_stack is the operator stack
+    @param operand_stack is the operand stack
     '''
 
     if identify(a) == 0 or a == '(': # operand/char
@@ -404,8 +404,8 @@ def check_type(a, previous, operator_stack, operand_stack):
 def identify(a):
     '''
     Identify method determines if 'a' is an operator or operand
-        @param 'a' is an element in the array (reg_expr)
-        @returns '1' for an operator or '0' for an operand
+    @param 'a' is an element in the array (reg_expr)
+    @returns '1' for an operator or '0' for an operand
     '''
     if a == '*' or a == '|' or a == '(' or a == ')':
         return 1 # operator
@@ -417,10 +417,10 @@ def check_precedence(operator_to_be_pushed, stack):
     '''
     check_precedence method determines if the operator that was just scanned
     has greater precedence than the operator currently on top of the stack
-        @param operator_to_be_pushed is the operator just scanned
-        @param stack is the operator stack
-        @returns '1' if the operator to be pushed has greater precedence than
-        the operator on top of the stack, otherwise returns '0'
+    @param operator_to_be_pushed is the operator just scanned
+    @param stack is the operator stack
+    @returns '1' if the operator to be pushed has greater precedence than
+    the operator on top of the stack, otherwise returns '0'
     '''
     if not stack:
         return 1
@@ -443,8 +443,9 @@ def closure(NFA, start_state):
     '''
     Closure method: For given start_state, follow the epsilon transitions all the way through 
     and add the new qb states to the final_set 
-        Params: NFA is the NFA machine and start_state is the beginning start state (qa state)
-        Return final set which is the set where start_state can get to on epsilon transitions.
+    @param NFA is the NFA machine
+    @param start_state is the beginning start state (qa state)
+    @returns final set which is the set where start_state can get to on epsilon transitions.
     '''
     
     final_set = []
@@ -464,9 +465,9 @@ def init_NFA(NFA, state, alphabet):
     '''
     init_NFA: takes state and goes through the alphabet, appending qb states 
     to final set of qb states if there exists a state and symbol already defined.
-        @param NFA is the NFA machine, state is the qa state
-        @param alphabet is the set of symbols
-        @returns final set which is set a specified state on a specified symbol can get to
+    @param NFA is the NFA machine, state is the qa state
+    @param alphabet is the set of symbols
+    @returns final set which is set a specified state on a specified symbol can get to
     ''' 
     # Append normal trans_set for each symbol in the alphabet
     final = [state, []]
@@ -486,9 +487,10 @@ def init_NFA(NFA, state, alphabet):
 def move(NFA, new_state, symbol):
     '''
     Move: Finds all the states the new_state can get to on the specified symbol.
-        Params: NFA is the NFA machine, new_state is the start state (which can be a set of states)
-        and symbol is the input symbol in the alphabet
-        Returns new_set which is the set of qb states new_state can get to on symbol
+    @param NFA is the NFA machine
+    @param new_state is the start state (which can be a set of states)
+    @param symbol is the input symbol in the alphabet
+    @returns new_set which is the set of qb states new_state can get to on symbol
     '''
 
     # new set is the set that state_at can get to on symbol
@@ -508,8 +510,9 @@ def init_DFA(NFA, NFA_start_state):
     init_DFA: uses information from NFA machine to build a new DFA machine. Keeps track of states 
     to be be handed in states_queue and assigns the "id's" of the set of states to be the state you 
     can transition to or from.
-        Params: NFA is the NFA machine, NFA_start_state is the beginning state of the DFA machine
-        Returns newDFA which is the initialized new DFA machine
+    @param NFA is the NFA machine
+    @param NFA_start_state is the beginning state of the DFA machine
+    @returns newDFA which is the initialized new DFA machine
     '''
 
     new_trans = []
@@ -580,7 +583,7 @@ def validate_expr(str, alphabet):
     '''
     validate_expr: takes in a string and the alphabet to make sure that
     the string is formatted properly
-        @param str is the regular expression
+    @param str is the regular expression
     @param alphabet is the valid symbols in the language
     @returns check which is 1 if invalid and 0 if valid
     '''
